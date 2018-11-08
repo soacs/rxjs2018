@@ -1,6 +1,6 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Observable, from, fromEvent, Subscription, of} from 'rxjs';
-import {interval, merge, pipe} from 'rxjs';
+import {interval, merge, pipe, forkJoin} from 'rxjs';
 import {filter, map, mapTo, catchError, scan, take, pluck, tap, window, mergeAll} from 'rxjs/operators';
 import * as Rx from 'rxjs';
 
@@ -24,7 +24,8 @@ export class OperatorsComponent implements OnInit, OnDestroy {
     // this.errorIt();
     // this.scanIt();
     // this.pluckIt();
-    this.windowIt();
+   // this.windowIt();
+    this.combineIt();
   }
 
   mergeIt() {
@@ -54,6 +55,32 @@ export class OperatorsComponent implements OnInit, OnDestroy {
     const clicks = fromEvent(document, 'click');
     const tagNames = clicks.pipe(tap(x => console.log(x)), pluck('target', 'tagName'));
     tagNames.subscribe(x => console.log('pluck: ' + x));
+  }
+
+  combineIt() {
+    const observable = forkJoin(
+      of(1, 2, 3, 4),
+      of(5, 6, 7, 8)
+    );
+    observable.subscribe(
+      value => console.log('forkJoin: ' + value),
+      err => {},
+      () => console.log('End of the forkJoin streams!')
+    );
+
+
+    const observable2 = forkJoin(
+      interval(1000).pipe(take(3)), // emit 0, 1, 2 every second and complete
+      interval(500).pipe(take(4)) // emit 0, 1, 2, 3 every half a second and complete
+    );
+    observable.subscribe(
+      value => console.log('forkJoin after: ' + value),
+      err => {},
+      () => console.log('End of the forkJoin after streams!')
+    );
+
+
+
   }
 
   windowIt() {
