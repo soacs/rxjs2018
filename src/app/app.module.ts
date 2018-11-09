@@ -12,6 +12,7 @@ import { ObserversComponent } from './components/observers/observers.component';
 import { CompletionsComponent } from './components/completions/completions.component';
 import { MulticastComponent } from './components/multicast/multicast.component';
 import { UtilityComponent } from './components/utility/utility.component';
+import { CreationComponent } from './components/creation/creation.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { UtilityComponent } from './components/utility/utility.component';
     CompletionsComponent,
     MulticastComponent,
     UtilityComponent,
-    SchedulerComponent
+    SchedulerComponent,
+    CreationComponent
   ],
   imports: [
     BrowserModule
