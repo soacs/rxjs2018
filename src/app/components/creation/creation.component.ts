@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Observable, timer, of, from, interval, fromEvent, pipe, defer, EMPTY} from 'rxjs';
-import { take, tap, multicast, mapTo, repeat, retry, startWith} from 'rxjs/operators';
+import { Observable, timer, of, from, interval, fromEvent, defer, EMPTY} from 'rxjs';
+import { take, tap, multicast, mapTo, repeat, retry, startWith, mergeMap} from 'rxjs/operators';
 
 import * as Rx from 'rxjs';
 
@@ -20,7 +20,7 @@ export class CreationComponent implements OnInit {
     // this.repeats();
     // this.retries();
     // this.defer();
-    this.empty();
+    // this.empty();
   }
 
   errors() {
@@ -41,19 +41,27 @@ export class CreationComponent implements OnInit {
 
   unsubscribe() {
     const observable = Rx.Observable.create(observer => {
+      observer.next('Hello');
       const id = setTimeout(() => observer.next('Van Halen'), 5000);
+      // observer.complete();
       return () => { clearTimeout(id); console.log('clear timeout!'); };
     });
 
     const subscription1 = observable.subscribe(val => console.log('subscription1: ' + val));
     setTimeout(() => subscription1.unsubscribe(), 20000);
 
-    const subscription2 = observable.subscribe(val => console.log('subscription2: ' + val));
+    const subscription2 = observable.subscribe(
+      {
+        next: val => console.log('subscription2: ' + val),
+        error: err => console.log('subscription2: ' + err),
+        complete: () => console.log('subscription2: complete')
+      });
+
     setTimeout(() => subscription2.unsubscribe(), 30000);
   }
 
   timer() {
-    const numbers1 = timer(5000, 1000);
+    const numbers1 = timer(5000, 500);
     const subscription = numbers1.subscribe(x => console.log('numbers1: ' + x));
     setTimeout(() => subscription.unsubscribe(), 10000);
 
@@ -63,7 +71,7 @@ export class CreationComponent implements OnInit {
 
   repeats() {
     const primes = of(3, 5, 7, 13);
-    const repeatedPrimes = primes.pipe(repeat(4));
+    const repeatedPrimes = primes.pipe(repeat(2));
     repeatedPrimes.subscribe(x => console.log('repeated primes: ' + x));
   }
 
@@ -75,16 +83,23 @@ export class CreationComponent implements OnInit {
 
   defer() {
     const clicksOrInterval = defer(function (): Observable<any> {
-      return Math.random() > 0.5
+      return Math.random() > 0.7
         ? fromEvent(document, 'click')
         : interval(1000);
     });
 
-    clicksOrInterval.subscribe(x => console.log('defered: ' + JSON.stringify(x)));
+    clicksOrInterval.subscribe(x => console.log('defered: x = ' + x));
+    // clicksOrInterval.subscribe(x => console.log('defered: x = ' + x.clientX + ' y = ' + x.clientY));
   }
 
   empty() {
-    const result = EMPTY.pipe(startWith(5));
-    result.subscribe(x => console.log(x));
+    const result = EMPTY.pipe(startWith(5, 7, 9));
+    result.subscribe(x => console.log('EMPTY: ' + x), () => console.log('EMPTY error'),  () => console.log('EMPTY complete'));
+
+    const intervaler = interval(1000);
+    const result2 = intervaler.pipe(mergeMap(x =>
+      x % 2 === 1 ? of('a', 'b', 'c') : EMPTY
+    ));
+    result2.subscribe(x => console.log(x));
   }
 }

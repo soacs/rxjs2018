@@ -14,25 +14,29 @@ import * as Rx from 'rxjs';
 })
 export class SchedulerComponent implements OnInit {
 
+  observable: Observable<number>;
+
   constructor() {
     console.log('ENTER SchedulerComponent Constructor');
-    console.log('EXIT SchedulerComponent Constructtor');
-  }
-
-  ngOnInit() {
-    this.scheduler();
-  }
-
-  scheduler() {
-    const observable = Rx.Observable.create(function (observer) {
+    this.observable = Rx.Observable.create(function (observer) {
       observer.next(1);
       observer.next(2);
       observer.next(3);
       observer.complete();
     }).pipe(observeOn(asyncScheduler));
 
+    console.log('EXIT SchedulerComponent Constructor');
+  }
+
+  ngOnInit() {
+    console.log('ENTER SchedulerComponent ngOnInit');
+    this.scheduler();
+    console.log('EXIT SchedulerComponent ngOnInit');
+  }
+
+  scheduler() {
     console.log('Scheduler: just before subscribe');
-    observable.subscribe({
+    this.observable.subscribe({
       next: x => console.log('Scheduler: got value ' + x),
       error: err => console.error('something wrong occurred: ' + err),
       complete: () => console.log('done'),

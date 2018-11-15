@@ -15,22 +15,23 @@ export class CompletionsComponent implements OnInit, OnDestroy {
 
   constructor() {
     console.log('ENTER CompletionsComponent Constructor');
-    console.log('EXIT CompletionsComponent Constructtor');
-  }
-
-  ngOnInit() {
-    console.log('ENTER CompletionsComponent ngOnInit');
     this.observable = Rx.Observable.create(function (observer) {
       observer.next(1);
       observer.next(2);
       observer.next(3);
+
       setTimeout(() => {
         observer.next(4);
         observer.complete();
-      }, 1000);
+      }, 4000);
     });
+    console.log('EXIT CompletionsComponent Constructor');
+  }
+
+  ngOnInit() {
+    console.log('ENTER CompletionsComponent ngOnInit');
     console.log('just before subscribe');
-    this.observable.subscribe({
+    this.subscription = this.observable.subscribe({
       next: x => console.log('got value ' + x),
       error: err => console.error('something wrong occurred: ' + err),
       complete: () => console.log('done'),

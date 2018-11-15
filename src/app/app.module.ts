@@ -13,13 +13,13 @@ import { CompletionsComponent } from './components/completions/completions.compo
 import { MulticastComponent } from './components/multicast/multicast.component';
 import { UtilityComponent } from './components/utility/utility.component';
 import { CreationComponent } from './components/creation/creation.component';
+import { IntroComponent } from './components/intro/intro.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SubjectsComponent,
     OperatorsComponent,
-    SchedulerComponent,
     BehaviorComponent,
     AsyncComponent,
     ReplayComponent,
@@ -28,7 +28,8 @@ import { CreationComponent } from './components/creation/creation.component';
     MulticastComponent,
     UtilityComponent,
     SchedulerComponent,
-    CreationComponent
+    CreationComponent,
+    IntroComponent
   ],
   imports: [
     BrowserModule

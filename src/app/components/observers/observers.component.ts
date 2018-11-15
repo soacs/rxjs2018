@@ -12,12 +12,7 @@ export class ObserversComponent implements OnInit {
   observable: Observable<string>;
 
   constructor() {
-    console.log('ENTER ObserversComponent Constrcutor');
-    console.log('EXIT ObserversComponent Constrcutor');
-  }
-
-  ngOnInit() {
-    console.log('ENTER ObserversComponent ngOnInit');
+    console.log('ENTER ObserversComponent Constructor');
     this.observable = Rx.Observable.create(function (observer) {
       observer.next('twenty');
       observer.next('thirty');
@@ -25,8 +20,13 @@ export class ObserversComponent implements OnInit {
       setTimeout(() => {
         observer.next('fifty');
         observer.complete();
-      }, 1000);
+      }, 3000);
     });
+    console.log('EXIT ObserversComponent Constructtor');
+  }
+
+  ngOnInit() {
+    console.log('ENTER ObserversComponent ngOnInit');
     console.log('just before subscribe');
     this.observable.subscribe({
       next: x => console.log('OBSERVER1 - got value ' + x),
