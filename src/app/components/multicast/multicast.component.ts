@@ -15,7 +15,7 @@ export class MulticastComponent implements OnInit {
   }
 
   ngOnInit() {
-    const source = interval(2000).pipe(take(5));
+    const source = interval(2000).pipe(take(1));
     const example = source.pipe(
       // since we are multicasting below, side effects will be executed once
       tap(() => console.log('Side Effect #1')),
