@@ -48,7 +48,7 @@ export class CreationComponent implements OnInit {
     });
 
     const subscription1 = observable.subscribe(val => console.log('subscription1: ' + val));
-    setTimeout(() => subscription1.unsubscribe(), 20000);
+    setTimeout(() => subscription1.unsubscribe(), 10000);
 
     const subscription2 = observable.subscribe(
       {
@@ -61,18 +61,20 @@ export class CreationComponent implements OnInit {
   }
 
   timer() {
-    const numbers1 = timer(5000, 500);
+    const numbers1 = timer(2000, 500);
     const subscription = numbers1.subscribe(x => console.log('numbers1: ' + x));
-    setTimeout(() => subscription.unsubscribe(), 10000);
+    setTimeout(() => subscription.unsubscribe(), 5000);
 
-     const numbers2 = timer(12000);
-     numbers2.subscribe(x => console.log('numbers2; ' + x));
+    const numbers2 = timer(1000, 500);
+    const subscription2 = numbers2.subscribe(x => console.log('numbers2; ' + x));
+    setTimeout(() => subscription2.unsubscribe(), 15000);
+
   }
 
   repeats() {
     const primes = of(3, 5, 7, 13);
     const repeatedPrimes = primes.pipe(repeat(2));
-    repeatedPrimes.subscribe(x => console.log('repeated primes: ' + x));
+    repeatedPrimes.subscribe(x => console.log('repeated primes: ' + x), (err) => console.log(err), () => console.log('complete'));
   }
 
   retries() {

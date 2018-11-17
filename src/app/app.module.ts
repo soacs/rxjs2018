@@ -14,6 +14,10 @@ import { MulticastComponent } from './components/multicast/multicast.component';
 import { UtilityComponent } from './components/utility/utility.component';
 import { CreationComponent } from './components/creation/creation.component';
 import { IntroComponent } from './components/intro/intro.component';
+import { FiltersComponent } from './components/filters/filters.component';
+import { TransformationsComponent } from './components/transformations/transformations.component';
+import { ConditionalsComponent } from './components/conditionals/conditionals.component';
+import { CombinationsComponent } from './components/combinations/combinations.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +33,11 @@ import { IntroComponent } from './components/intro/intro.component';
     UtilityComponent,
     SchedulerComponent,
     CreationComponent,
-    IntroComponent
+    IntroComponent,
+    FiltersComponent,
+    TransformationsComponent,
+    ConditionalsComponent,
+    CombinationsComponent
   ],
   imports: [
     BrowserModule

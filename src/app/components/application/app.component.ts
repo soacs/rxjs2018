@@ -8,7 +8,7 @@ import * as Rx from 'rxjs';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit, OnDestroy {
-  title = 'RxJS Demo';
+  title = 'RxJS 6 Demo';
   observable: Observable<number>;
   subscription: Subscription;
 

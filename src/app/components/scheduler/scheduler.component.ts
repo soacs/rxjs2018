@@ -35,6 +35,7 @@ export class SchedulerComponent implements OnInit {
   }
 
   scheduler() {
+    console.log('ENTER scheduler()');
     console.log('Scheduler: just before subscribe');
     this.observable.subscribe({
       next: x => console.log('Scheduler: got value ' + x),
@@ -42,6 +43,7 @@ export class SchedulerComponent implements OnInit {
       complete: () => console.log('done'),
     });
     console.log('Scheduler: just after subscribe');
+    console.log('EXIT scheduler()');
   }
 
 }
