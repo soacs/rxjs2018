@@ -18,6 +18,8 @@ import { FiltersComponent } from './components/filters/filters.component';
 import { TransformationsComponent } from './components/transformations/transformations.component';
 import { ConditionalsComponent } from './components/conditionals/conditionals.component';
 import { CombinationsComponent } from './components/combinations/combinations.component';
+import { MathematicalComponent } from './components/mathematical/mathematical.component';
+import { ErrorhandlingComponent } from './components/errorhandling/errorhandling.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import { CombinationsComponent } from './components/combinations/combinations.co
     FiltersComponent,
     TransformationsComponent,
     ConditionalsComponent,
-    CombinationsComponent
+    CombinationsComponent,
+    MathematicalComponent,
+    ErrorhandlingComponent
   ],
   imports: [
     BrowserModule
