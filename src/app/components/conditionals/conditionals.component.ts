@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { every, find } from 'rxjs/operators';
+import { tap, every, find } from 'rxjs/operators';
 import * as Rx from 'rxjs';
 import { Observable, Subscription, of, fromEvent } from 'rxjs';
 
@@ -20,13 +20,8 @@ export class ConditionalsComponent implements OnInit {
   }
 
   conditionals() {
-    const myBoolean = of(3, 2, 4, 1, 5, 9).pipe(every(x => x < 8));
-    this.subscription = myBoolean.subscribe(x => console.log('Conditional: ' + x)); // -> false
-/*
-    const clicks = fromEvent(document, 'click');
-    const result = clicks.pipe(find((ev) => ev.target.tagName === 'HTML'));
-    result.subscribe(x => console.log('HTML Clicked: ' + x));
-    */
+    const myBoolean = of(3, 2, 4, 1, 9, 7).pipe(tap(x => console.log(x)), every(x => x <= 9));
+    this.subscription = myBoolean.subscribe(x => console.log('Conditional: ' + x));
   }
 
 }
